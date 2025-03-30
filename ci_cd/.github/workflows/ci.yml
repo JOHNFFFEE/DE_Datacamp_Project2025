@@ -1,0 +1,49 @@
+name: Data Pipeline CI/CD
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.9"
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install dbt-bigquery pytest
+
+      - name: Run unit tests
+        run: pytest tests/unit/
+
+      - name: Run integration tests
+        run: pytest tests/integration/
+
+      - name: Run dbt tests
+        env:
+          GCP_CREDENTIALS: ${{ secrets.GCP_CREDENTIALS }}
+        run: |
+          dbt deps
+          dbt test
+
+  deploy:
+    needs: test
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Configure GCP
+        uses: google-github-actions/auth@v1
+        with:
+          credentials_json: ${{ secrets.GCP_CREDENTIALS }}
+
+      - name: Run pipeline
+        run: |
+          python -m ingestion_flow
+          dbt run

@@ -40,5 +40,5 @@ def main_flow():
 
 # Run the flow
 if __name__ == "__main__":
-    main_flow.serve(name="my-first-deployment", cron="* 2 * * *")
+    main_flow.serve(name="my-first-deployment", cron="0 12 * * *")
     

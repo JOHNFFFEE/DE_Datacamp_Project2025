@@ -47,8 +47,13 @@ We decided to run the pipeline periodicly
 │   │   ├── create_packages.sql
 │   │   ├── daily_difference.sql
 │   │   ├── fill_nulls.sql
+│   ├── seeds/
+│   │   ├── country_lookup.csv
+│   │   ├── population.csv
 │   ├── dbt_project.yml
 │   ├── profiles.yml
+
+
 ├── flow
 │   ├── dbt_flow.py
 │
@@ -130,7 +135,7 @@ set GOOGLE_APPLICATION_CREDENTIALS="path/to/credentials.json"
 3. **Storage**: Data is stored in Parquet format in cloud storage (e.g., Google Cloud Storage).
 4. **Pipeline Execution**: The pipeline is run using `pipeline.run()` to perform the ingestion and normalization process.
 
-## it is - ingestion_flow.py
+- ingestion_flow.py
 
 ### **Scripts under tasks using Prefect**
 
@@ -219,6 +224,8 @@ Run the pipeline either directly with Python or via Prefect for orchestration:
 python main_flow.py
 ```
 
+![alt text](image-6.png)
+
 Alternatively, use **Prefect** to manage scheduling and orchestration via the ui at : http://localhost:4200/deployments
 
 set GCP block call it
@@ -254,5 +261,10 @@ python dashboards\heatmap.py
 ```
 
 don't forget to run the server first, the data is taken from bq and plotting it.
+
+---
+
+License
+This project is licensed under the MIT License - see the LICENSE file for details.
 
 ---

@@ -1,5 +1,4 @@
 services:
-
   # Prefect Database
   database:
     image: postgres:15.2-alpine
@@ -17,7 +16,16 @@ services:
   # MinIO for flow storage
   minio:
     image: minio/minio:latest
-    entrypoint: ["minio", "server", "--address", "0.0.0.0:9000", "--console-address", "0.0.0.0:9001", "/data"]
+    entrypoint:
+      [
+        "minio",
+        "server",
+        "--address",
+        "0.0.0.0:9000",
+        "--console-address",
+        "0.0.0.0:9001",
+        "/data",
+      ]
     volumes:
       - "minio:/data"
     ports:
@@ -27,11 +35,11 @@ services:
 
   # Prefect Server API and UI
   server:
-    image: prefecthq/prefect:2.11.5-python3.11
+    image: prefecthq/prefect:3.1.10-python3.11
     restart: always
     volumes:
       - prefect:/root/.prefect
-      - ./config:/usr/app/config  # Mount config folder for credentials
+      - ./config:/usr/app/config # Mount config folder for credentials
       - ./config/service_account.json:/usr/app/service_account.json
     entrypoint: ["/opt/prefect/entrypoint.sh", "prefect", "server", "start"]
     environment:
@@ -45,17 +53,47 @@ services:
     depends_on:
       - database
     profiles: ["server"]
+    command: prefect server start
+
+  pipeline:
+    build: .
+    environment:
+      - GOOGLE_APPLICATION_CREDENTIALS=/app/credentials.json
+    volumes:
+      - .:/app
+      - ~/.config/gcloud:/root/.config/gcloud
+    # depends_on:
+    #   - database
+    #   - dashboard
+
+  dashboard:
+    build: .
+    ports:
+      - "8050:8050"
+    command: python dashboard/global_view.py
+    environment:
+      - GOOGLE_APPLICATION_CREDENTIALS=/app/credentials.json
+    volumes:
+      - .:/app
 
   # Prefect Agent
   agent:
     image: prefecthq/prefect:2.11.5-python3.11
     restart: always
-    entrypoint: ["/opt/prefect/entrypoint.sh", "prefect", "agent", "start", "-q", "YOUR_WORK_QUEUE_NAME"]
+    entrypoint:
+      [
+        "/opt/prefect/entrypoint.sh",
+        "prefect",
+        "agent",
+        "start",
+        "-q",
+        "YOUR_WORK_QUEUE_NAME",
+      ]
     environment:
       - PREFECT_API_URL=http://server:4200/api
     profiles: ["agent"]
     volumes:
-      - ./config:/usr/app/config  # Mount config folder for credentials
+      - ./config:/usr/app/config # Mount config folder for credentials
 
   # Prefect CLI
   cli:
@@ -64,7 +102,7 @@ services:
     working_dir: "/root/flows"
     volumes:
       - "./flows:/root/flows"
-      - ./config:/usr/app/config  # Mount config folder for credentials
+      - ./config:/usr/app/config # Mount config folder for credentials
     environment:
       - PREFECT_API_URL=http://server:4200/api
     profiles: ["cli"]
