@@ -83,5 +83,5 @@ def covid_vaccine_ingestion_flow():
     upload_status = upload_to_gcs(processed_df)
 
 # Run the flow
-if __name__ == "__main__":
-    covid_vaccine_ingestion_flow()
+# if __name__ == "__main__":
+    # covid_vaccine_ingestion_flow()

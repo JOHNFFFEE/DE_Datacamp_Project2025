@@ -75,5 +75,5 @@ def create_partitioned_vaccination_table():
         raise
 
 # Run the function
-if __name__ == "__main__":
-    create_partitioned_vaccination_table()
+# if __name__ == "__main__":
+#     create_partitioned_vaccination_table()

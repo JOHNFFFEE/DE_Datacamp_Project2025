@@ -63,6 +63,10 @@ We decided to run the pipeline periodicly
 │   ├── service_account.json
 
 ├── /tests/  # testing components
+├── /ci_cd/  # testing components
+
+
+
 │
 └── README.md
 ```
@@ -158,7 +162,15 @@ AS SELECT * FROM temp_vaccination;
 3. **Running dbt**: The `dbt run` command is used to execute the models and perform the transformations.
 
 ```bash
+cd dbt
 dbt run
+```
+
+you can check your connection
+
+```bash
+cd dbt
+dbt debug
 ```
 
 You can connect your DBT Cloud account to your github and run all the files dont forget to update profiles.yml, dbt-project.yml
@@ -200,10 +212,11 @@ set GOOGLE_APPLICATION_CREDENTIALS="/path/to/service_account.json"
 ### Step 2: Run the Pipeline
 
 Run the pipeline either directly with Python or via Prefect for orchestration:
+![alt text](image-5.png)
 
 ```bash
 # Run the pipeline directly with Python
-python main.py
+python main_flow.py
 ```
 
 Alternatively, use **Prefect** to manage scheduling and orchestration via the ui at : http://localhost:4200/deployments

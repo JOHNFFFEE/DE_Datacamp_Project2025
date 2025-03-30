@@ -68,9 +68,10 @@ def load_gcs_to_bigquery(gcs_uri: str) -> int:
     except Exception as e:
         logger.error(f"BigQuery load failed: {str(e)}")
         raise
+ 
 
 
-if __name__ == "__main__":
-    gcs_uri = f"gs://{Config.BUCKET_NAME}/vaccination_data.parquet"
-    load_gcs_to_bigquery(gcs_uri)
+# if __name__ == "__main__":
+#     gcs_uri = f"gs://{Config.BUCKET_NAME}/vaccination_data.parquet"
+#     load_gcs_to_bigquery(gcs_uri)
 
