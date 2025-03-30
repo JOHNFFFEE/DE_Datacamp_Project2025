@@ -1,0 +1,28 @@
+# Ignore service account key
+service_account.json
+
+# Ignore Python bytecode
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ignore virtual environments
+venv/
+.env
+
+# Ignore logs and cache
+logs/
+*.log
+
+# Ignore data files
+*.parquet
+*.csv
+*duckdb
+
+# Ignore dbt compiled files
+dbt_project/target/
+dbt_project/dbt_packages/
+
+
+prefect_env/

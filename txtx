@@ -1,0 +1,107 @@
+Execute the following command to check dbt:
+docker-compose run dbt debug
+If the connection works, proceed with running the transformations:
+docker-compose run dbt run
+
+Let's create a new transformation model to clean and prepare the data.
+
+Create a File: dbt_project/models/cleaned_data.sql
+docker-compose run dbt run --select cleaned_data
+
+Now, we can start Kestra and trigger the pipeline:
+docker-compose up -d kestra
+
+kestra cli execution start covid_project.data_pipeline
+
+remove from docker-compose
+upload_gcs:
+load_bigquery:
+
+this is for the test only
+
+Start Kestra
+
+docker-compose up -d kestra
+Trigger the pipeline
+
+kestra cli execution start covid_project.covid_vaccine_pipeline
+Check the Parquet file in GCS
+
+gsutil ls gs://my-gcs-bucket/covid_vaccine/
+Verify data in BigQuery
+
+SELECT \* FROM `my_project.covid_data.vaccination_data` LIMIT 10;
+Run dbt manually if needed
+
+docker exec -it dbt dbt run
+
+🔹 Where to Put GCP_SERVICE_ACCOUNT in Kestra?
+The GCP service account JSON key should be stored securely as a Kestra secret. Here’s how you do it:
+
+🔸 Step 1: Add the Secret in Kestra
+Convert the JSON key file into a single-line string
+Run this command to base64 encode your GCP JSON key file:
+
+bash
+Copy
+Edit
+cat my-gcp-key.json | base64
+This will output a long string—copy it.
+
+Add the secret to Kestra
+Open the Kestra UI at http://localhost:8080/, then:
+
+Go to Settings → Secrets.
+
+Click Add Secret.
+
+Key: GCP_SERVICE_ACCOUNT
+
+Value: Paste the base64 string from Step 1.
+
+docle
+test ---
+run dockerfile
+docker build -t my-pipeline .
+docker run --rm -it my-pipeline
+
+docker ps
+Enter the container:
+docker exec -it 03565... bash
+Once inside the container, execute:
+python load_bigquery.py
+
+Create Schema via SQL
+CREATE SCHEMA `my-gcp-project.raw_data`
+
+table_name=vaccination_data_raw
+dataset_name =covid_raw_data
+projectID : acoustic-env-454618-v3
+
+seed files -
+https://github.com/thewiremonkey/factbook.csv/tree/master
+
+PREFECT ORCHASTRATION
+docker-compose --profile server up
+http://localhost:4200
+Use Prefect Agent to Run the Flow - docker-compose up agent
+
+start the Prefect server (i
+prefect server start
+
+Test dbt manually:
+set GCP_KEYFILE=config\service_account.json
+set DBT_PROFILES_DIR=dbt
+cd dbt
+dbt debug
+
+python flows\pipeline.py
+
+## Optimized Vaccination Data Pipeline
+
+### Key Improvements:
+
+- ✅ Partitioned by `vaccination_date` for time-based query efficiency
+- ✅ Clustered by `location` and `iso_code` for geographic analysis
+- ✅ Data quality checks implemented in dbt
+- ✅ Automated deployment via Python/BigQuery

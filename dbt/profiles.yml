@@ -1,0 +1,12 @@
+default:
+  target: dev
+  outputs:
+    dev:
+      type: bigquery
+      method: service-account
+      keyfile: "{{ env_var('GCP_KEYFILE') }}"
+      project: acoustic-env-454618-v3
+      dataset: covid_raw_data
+      threads: 4
+      location: US
+      timeout_seconds: 300 # Only ONE timeout parameter

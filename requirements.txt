@@ -1,0 +1,15 @@
+prefect
+dlt
+pandas
+pyarrow
+duckdb
+google-cloud-storage
+prefect_gcp
+google-cloud-bigquery
+dbt-core
+prefect_dbt
+dbt-bigquery
+streamlit
+plotly
+
+
