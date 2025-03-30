@@ -11,5 +11,6 @@ prefect_dbt
 dbt-bigquery
 streamlit
 plotly
+db-dtypes
 
 
