@@ -1,13 +1,28 @@
-# COVID-19 Vaccination Data Pipeline & Analytics Dashboard
+# 🏥 COVID-19 Vaccination Data Pipeline & Analytics Dashboard
 
-## Problem Description
+[![Built with Python](https://img.shields.io/badge/Python-3.9+-blue?logo=python)](https://python.org)
+[![Powered by Plotly](https://img.shields.io/badge/Visualization-Plotly-purple?logo=plotly)](https://plotly.com)
 
-In this project, we are building an automated data pipeline to ingest, transform, and store COVID-19 vaccination data. The goal is to ingest data from an external source, store it in a data lake or warehouse, and then perform data transformations for analysis and reporting. The pipeline utilizes **dlt** for data ingestion, **dbt** for data transformation, and **Prefect** for orchestration and scheduling.
-We decided to run the pipeline periodicly
+## 🌐 Problem Description
+
+**Core Problem:** Public health organizations need real-time visibility into global COVID-19 vaccination progress to:
+
+- Identify coverage gaps
+- Allocate resources effectively
+- Monitor campaign effectiveness
+- Compare country performance
+
+**Specific Challenges:**
+
+- Data comes from multiple inconsistent sources
+- Raw data requires complex cleaning/transformation
+- Analysis needs to handle billions of records efficiently
+- Stakeholders need intuitive visualizations
+- Solutions must work across different IT environments
 
 ---
 
-## Tools and Technologies Used
+## 🛠 Tools and Technologies Used
 
 - **dlt**: A data pipeline framework for efficient data ingestion into data warehouses.
 - **dbt**: A tool for transforming raw data in the data warehouse using SQL.
@@ -18,7 +33,7 @@ We decided to run the pipeline periodicly
 
 ---
 
-## Folder Structure
+## 📋Folder Structure
 
 ```
 /project-directory
@@ -78,7 +93,7 @@ We decided to run the pipeline periodicly
 
 ---
 
-### Getting Started
+### ✨Getting Started
 
 ## Prerequisites
 
@@ -156,7 +171,7 @@ AS SELECT * FROM temp_vaccination;
 
 ### **dbt (Data Build Tool)**
 
-![alt text](image-1.png)
+![alt text](pics/image-1.png)
 
 **dbt** is used to transform the raw vaccination data into structured, analytics-ready tables. You define SQL-based transformation models and execute them using dbt.
 
@@ -217,36 +232,36 @@ set GOOGLE_APPLICATION_CREDENTIALS="/path/to/service_account.json"
 ### Step 2: Run the Pipeline
 
 Run the pipeline either directly with Python or via Prefect for orchestration:
-![alt text](image-5.png)
+![alt text](pics/image-5.png)
 
 ```bash
 # Run the pipeline directly with Python
 python main_flow.py
 ```
 
-![alt text](image-6.png)
+![alt text](pics/image-6.png)
 
 Alternatively, use **Prefect** to manage scheduling and orchestration via the ui at : http://localhost:4200/deployments
 
 set GCP block call it
-![alt text](image.png)
+![alt text](pics/image.png)
 to save GCS json file and use it into your code
 
 ---
 
-## Interactive Dashboards
+## 📊Interactive Dashboards
 
 We've created three comprehensive dashboards:
 
 Dashboard 1: Country Analysis
-![alt text](image-4.png)
+![alt text](pics/image-4.png)
 
 ```bash
 python dashboards\country_analysis.py
 ```
 
 Dashboard 2: Top countries Vaccination
-![alt text](image-3.png)
+![alt text](pics/image-3.png)
 
 ```bash
 python dashboards\top_countries.py
@@ -254,7 +269,7 @@ python dashboards\top_countries.py
 ```
 
 Dashboard 3: Vaccination Heatmap
-![alt text](image-2.png)
+![alt text](pics/image-2.png)
 
 ```bash
 python dashboards\heatmap.py

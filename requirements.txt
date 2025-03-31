@@ -1,4 +1,4 @@
-prefect
+prefect==3.1.10
 dlt
 pandas
 pyarrow
