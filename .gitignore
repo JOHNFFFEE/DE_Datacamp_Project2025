@@ -26,3 +26,5 @@ dbt_project/dbt_packages/
 
 
 prefect_env/
+Dockerfile
+docker-compose.yml
