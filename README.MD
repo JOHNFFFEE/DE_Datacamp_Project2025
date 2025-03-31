@@ -224,7 +224,7 @@ Run the pipeline either directly with Python or via Prefect for orchestration:
 python main_flow.py
 ```
 
-![alt text](image-6.png)
+![alt text](pics/image-6.png)
 
 Alternatively, use **Prefect** to manage scheduling and orchestration via the ui at : http://localhost:4200/deployments
 
