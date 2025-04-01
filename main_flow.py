@@ -1,4 +1,9 @@
 # ingestion_flow.py
+import os
+os.environ["PREFECT_API_V2"] = "true"
+os.environ["PYDANTIC_V2"] = "true"
+os.environ["PREFECT_RESULTS"] = "false"  # Disable problematic results feature
+
 from prefect import flow, task
 from tasks.ingestion_flow import covid_vaccine_ingestion_flow
 

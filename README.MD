@@ -83,7 +83,7 @@
 │   ├── service_account.json
 
 ├── /tests/  # testing components
-├── /ci_cd/  # testing components
+├── /ci_cd/  # ci/cd components
 
 
 
@@ -92,6 +92,10 @@
 ```
 
 ---
+
+**The pipeline** is downloading from an api, storing the file into a bucket at gcs as a parquet file, retrieving it from gsc to bigquery then partitioning and clustering it before dbt's work.
+
+![diagram structure](pics/diagram_structure.png)
 
 ### ✨Getting Started
 
@@ -117,9 +121,14 @@ pip install -r requirements.txt
 #Run prefect
 prefect server start
 
-#The pipeline is already schedule you will be able to see it under the deployment section
+# To run the pipeline from the root
+python main_flow.py
 
 ```
+
+it is already scheduled you will be able to see it under the deployment section
+
+---
 
 To move the data to your GCS and Bq change the settings under
 
@@ -254,14 +263,14 @@ to save GCS json file and use it into your code
 We've created three comprehensive dashboards:
 
 Dashboard 1: Country Analysis
-![alt text](pics/image-4.png)
+![country_analysis](pics/image-4.png)
 
 ```bash
 python dashboards\country_analysis.py
 ```
 
 Dashboard 2: Top countries Vaccination
-![alt text](pics/image-3.png)
+![top_countries](pics/image-3.png)
 
 ```bash
 python dashboards\top_countries.py
@@ -269,7 +278,7 @@ python dashboards\top_countries.py
 ```
 
 Dashboard 3: Vaccination Heatmap
-![alt text](pics/image-2.png)
+![heatmap](pics/image-2.png)
 
 ```bash
 python dashboards\heatmap.py
